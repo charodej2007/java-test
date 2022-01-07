@@ -8,10 +8,10 @@ import java.io.*;
 /**
  * Upload a file to an Amazon S3 bucket.
  * <p>
- * This code expects that you have AWS credentials set up per:
+ * This code expects that you have AWS credentials set up according to:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
-public class S3Upload {
+public class S3UploadSolution {
     public static void main(String[] args) {
         String bucket_name = "<FMI1>";
         String file_path = "<FMI2>";
@@ -44,8 +44,15 @@ public class S3Upload {
             }
         } catch (IOException e) {
             System.out.println("Something went wrong");
+        } finally {
+            if(reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    System.out.printf("Something went wrong");
+                }
+            }
         }
-
         return fileContents;
     }
 
